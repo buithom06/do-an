@@ -1,0 +1,315 @@
+﻿@using TECH.Areas.Admin.Models
+@model List<ProductForCategoryModelView>
+
+<style>
+            .t-prod-H {
+
+            background: #e6e6e6;
+        border-bottom: 1px solid #fff;
+        display: block;
+        width: 100%;
+        height: 41px;
+        margin-bottom: 0px;
+
+    }
+    .t-prod-H .t_span1 span.tab_news5 {
+        background: #89a600;
+    }
+    .info-prod-H h3 {
+        color: #333;
+        font-weight: 400;
+        padding: 8px;
+        font-size: 13px;
+        margin: 0px;
+    }
+    .info-prod-H h4 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #f8456a;
+        margin: 0px;
+        font-size: 13px;
+    }
+    .t-prod-H .t_span1 span {
+        text-transform: uppercase;
+        color: #fff;
+        float: left;
+        font-size: 14px;
+        font-weight: 400;
+        padding: 0 20px;
+            height: 100%;
+                display: inline-flex;
+        align-items: center;
+    }
+    .box-content-componse .row{
+        margin:0px;
+    }
+    .box-products{
+            margin-top: 30px;
+    }
+
+        .titlehome {
+            float: left;
+            width: 100%;
+            background: #fff;
+            border: 2px solid #ccc;
+            height: 53px;
+        }
+
+            .titlehome i {
+                line-height: 50px;
+                color: #fff;
+                height: 50px;
+                padding-right: 50px;
+                background-size: 50px 50px;
+                background-position: 25px 0;
+                background-repeat: no-repeat;
+                background-color: #a6a6a6;
+                margin-bottom: -4px;
+                border-radius: 0 50px 50px 0;
+                width: 120px;
+                float: left;
+                display:block;
+            }
+
+            .titlehome span {
+                width: 48px;
+                height: 48px;
+                margin: 1px 0 -4px -49px;
+                background: url(/image-common/favicon2.png) center no-repeat #fff;
+                font-weight: 700;
+                color: #010101;
+                float: left;
+                display: block;
+                border-radius: 50px;
+            }
+
+            .titlehome i, .titlehome span {
+                font-size: 24px;
+                text-align: center;
+            }
+
+            .titlehome h2 {
+                line-height: 41px;
+                padding-left: 20px;
+                padding-top: 5px;
+                font-size: 20px;
+                text-decoration: none;
+                color: #010101;
+                margin:0px;
+                float:left;
+            }
+
+                .titlehome h2 a {
+                    color: #e77e24;
+                }
+
+            .titlehome a.viewall {
+                color: #e77e24;
+                margin-right: 10px;
+            }
+
+            .titlehome .menuchild a, .titlehome a.viewall {
+                font-size: 14px;
+                font-weight: 400;
+                text-transform: uppercase;
+            }
+
+            .titlehome .menuchild, .titlehome a.viewall {
+                float: right;
+                margin-top: 13px;
+            }
+</style>
+@if (Model != null && Model.Count > 0)
+{
+
+    @foreach (var item in Model)
+    {
+        if (item.productModelViews != null && item.productModelViews.Count > 0)
+        {
+            @* <div class="padmb">
+                <div class="title-sale">
+                    <p><a title="@item.CategoryModelView.name">@item.CategoryModelView.name</a></p>
+                </div>
+            </div>
+            <div class="see-more" style="display: inline-block;width:100%;margin-bottom: 10px;">
+                <a href="/san-pham/@item.CategoryModelView.id" title="@item.CategoryModelView.name" class="viewall" style="float: right;">Xem tất cả</a>
+            </div>*@
+            <section class="section section2 custom-section" id="section_1623773133">
+                <div class="container">
+
+                    <div class="inner">
+                        <div class="section-content relative">
+                            <div class="row" id="row-1066193258">
+                                <div id="col-1187004373" class="col small-12 large-12">
+                                    <div class="col-inner">
+                                        <div class="container section-title-container" style="padding: 0px;">
+                                            <h2 class="section-title section-title-normal">
+                                                @*<b></b>*@
+                                                <span class="section-title-main" style="    font-weight: bold;
+    color: #0a0a0a;">@item.CategoryModelView.name</span>
+                                                @*<b></b>*@
+                                                <a href="/san-pham?categoryId=@item.CategoryModelView.id" target="" title="@item.CategoryModelView.name" style="font-size: 17px;">Xem tất cả<i class="icon-angle-right"></i></a>
+                                            </h2>
+                                        </div>
+                                        <div class="img has-hover banner x md-x lg-x y md-y lg-y" id="image_907476189" style="width: 100%;">
+                                            <div class="img-inner dark">
+                                                <img loading="lazy" decoding="async" width="100%" height="200" src="/category-image/@item.CategoryModelView.icon">
+                                            </div>
+                                        </div>
+                                        <div class="row  equalize-box large-columns-5 medium-columns-3 small-columns-2 row-small">
+                                            @foreach (var itemProduct in item.productModelViews)
+                                            {                                               
+                                                <div class="col">
+                                                    <div class="col-inner">
+
+                                                        <div class="product-small box has-hover box-normal box-text-bottom">
+                                                            <div class="box-image">
+                                                                <div class="image-zoom image-cover" style="padding-top:100%;">
+                                                                    <a href="/chi-tiet-san-pham/@itemProduct.id" aria-label="@itemProduct.name">
+                                                                        <img loading="lazy" decoding="async" width="790" height="790" src="/product-image/@(itemProduct.ImageModelView != null && itemProduct.ImageModelView.Count > 0?itemProduct.ImageModelView[0].name:"")" class="attachment-original size-original lazy-load-active" alt="" sizes="(max-width: 790px) 100vw, 790px">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="box-text text-center" style="height: 119.25px;">
+                                                                <div class="title-wrapper">
+                                                                    <p class="name product-title woocommerce-loop-product__title" style="height: 69.7375px;"><a href="/chi-tiet-san-pham/@itemProduct.id" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"> @itemProduct.name</a></p>
+                                                                </div>
+                                                                <div class="star-rating-formats">
+                                                                    <span style="width:0%">
+
+                                                                        @if (itemProduct.star.HasValue && itemProduct.star.Value > 0)
+                                                                        {
+                                                                            int start_number = 5 - itemProduct.star.Value;
+                                                                            @for (int i = 1; i <= itemProduct.star.Value; i++)
+                                                                            {
+                                                                                <i class="fa fa-star" aria-hidden="true" style="color:#ee4d2d;"></i>
+                                                                            }
+                                                                            @for (int i = 1; i <= start_number; i++)
+                                                                            {
+                                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        }
+                                                                    </span>
+                                                                </div>
+                                                                <div class="price-wrapper" style="height: 18px;">
+                                                                    <span class="price">
+                                                                        <del aria-hidden="true">
+                                                                            <span class="woocommerce-Price-amount amount">
+                                                                                @if (!string.IsNullOrEmpty(itemProduct.price_reduced_str))
+                                                                                {
+                                                                                    @*<span class="current-price">@itemProduct.price_reduced_str ₫</span>*@
+                                                                                    <bdi>@itemProduct.price_reduced_str<span class="woocommerce-Price-currencySymbol">₫</span></bdi>
+                                                                                }
+                                                                              
+                                                                            </span>
+                                                                        </del>
+                                                                        <ins>
+                                                                            @if (!string.IsNullOrEmpty(itemProduct.price_sell_str))
+                                                                            {
+                                                                                @*<span class="current-price">@itemProduct.price_sell_str ₫</span>*@
+                                                                                 <span class="woocommerce-Price-amount amount"><bdi>@itemProduct.price_sell_str<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span>
+                                                                            }
+                                                                           
+                                                                        </ins>
+                                                                    </span>
+
+                                                                   
+
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    }
+
+}
+@*
+<section class="section section2 custom-section" id="section_1623773133">
+    <div class="wrapper">
+
+        <div class="inner">
+            <div class="section-content relative">
+                <div class="row" id="row-1066193258">
+                    <div id="col-1187004373" class="col small-12 large-12">
+                        <div class="col-inner">
+                            <div class="container section-title-container">
+                                <h2 class="section-title section-title-normal"><b></b><span class="section-title-main">Gia dụng nhà bếp</span><b></b><a href="/nha-bep/" target="">Xem tất cả<i class="icon-angle-right"></i></a></h2>
+                            </div>
+                            <div class="img has-hover banner x md-x lg-x y md-y lg-y" id="image_907476189" style="width: 100%;">
+                                <div class="img-inner dark">
+                                    <img loading="lazy" decoding="async" width="1165" height="200" src="http://giadung.themevivu.site/wp-content/uploads/2022/07/TIEN-ICH-NHA-BEP.jpg">
+                                </div>
+                            </div>
+                            <div class="row  equalize-box large-columns-5 medium-columns-3 small-columns-2 row-small">
+                            <div class="col">
+                            <div class="col-inner">
+
+                            <div class="product-small box has-hover box-normal box-text-bottom">
+                            <div class="box-image">
+                            <div class="image-zoom image-cover" style="padding-top:100%;">
+                            <a href="http://giadung.themevivu.site/product/ke-say-va-khu-khuan-dua-thia-say-kho-nhanh-va-diet-moi-vi-khuan/" aria-label="Kệ sấy và khử khuẩn đũa thìa sấy khô nhanh và diệt mọi vi khuẩn">
+                            <img loading="lazy" decoding="async" width="790" height="790" src="/image-side/z3532425625240_abf01ef9746b1fe3bd63b6c671af7aea.jpg" class="attachment-original size-original lazy-load-active" alt="" sizes="(max-width: 790px) 100vw, 790px">
+                            </a>
+                            </div>
+                            <div class="image-tools top right show-on-hover">
+                            </div>
+                            <div class="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover">
+                            <a href="?add-to-cart=160" data-quantity="1" class="add-to-cart-grid no-padding is-transparent product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="160" data-product_sku="" aria-label="Thêm “Kệ sấy và khử khuẩn đũa thìa sấy khô nhanh và diệt mọi vi khuẩn” vào giỏ hàng" rel="nofollow">
+                            <div class="cart-icon tooltip is-small" title="Thêm vào giỏ"><strong>+</strong></div>
+                            </a>
+                            </div>
+                            </div>
+                            <div class="box-text text-center" style="height: 119.25px;">
+                            <div class="title-wrapper">
+                            <p class="name product-title woocommerce-loop-product__title" style="height: 69.7375px;"><a href="http://giadung.themevivu.site/product/ke-say-va-khu-khuan-dua-thia-say-kho-nhanh-va-diet-moi-vi-khuan/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">Kệ sấy và khử khuẩn đũa thìa sấy khô nhanh và diệt mọi vi khuẩn</a></p>
+                            </div>
+                            <div class="price-wrapper" style="height: 18px;">
+                            <span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi>320.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del> <ins><span class="woocommerce-Price-amount amount"><bdi>245.000<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins></span>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        #section_1623773133 {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        background-color: rgb(250, 250, 250);
+        }
+        #section_1623773133 .ux-shape-divider--top svg {
+        height: 150px;
+        --divider-top-width: 100%;
+        }
+        #section_1623773133 .ux-shape-divider--bottom svg {
+        height: 150px;
+        --divider-width: 100%;
+        }
+    </style>
+</section>*@

@@ -1,0 +1,153 @@
+﻿@using TECH.Areas.Admin.Models
+@model OrdersModelView
+@{
+    ViewData["Title"] = "Quản lý tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .item-image{
+              width: 100px;
+    height: 75px;
+    border-radius: 6px;
+    }
+    .custom-title-cart{
+        font-size: 20px;
+        color: #0849c5;
+        font-weight: bold;
+    }
+</style>
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3 class="">Chi tiết đơn hàng</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                        <li aria-current="page" class="breadcrumb-item active">Quản lý đơn hàng</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div>
+            <div>
+                <div>
+                    <div class="card">
+                        <div class=" row">
+                            <div class="col-sm-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-md-12 custom-title-cart">Thông tin mua hàng</div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <table id="table1" class="table ">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Họ tên:</td>
+                                                    <td>@Model.full_name</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Số điện thoại</td>
+                                                    <td>@Model.phone_number</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ghi chú:</td>
+                                                    <td>@Model.note</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                    </div>
+                                </div>
+                                </div>
+                            <div class="col-sm-8">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-12 custom-title-cart">Thông tin sản phẩm</div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table id="table1" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Hình ảnh</th>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Số lượng</th>
+                                                <th>Giá tiền</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.OrdersDetailModelView != null && Model.OrdersDetailModelView.Count > 0)
+                                            {
+                                                foreach (var item in Model.OrdersDetailModelView)
+                                                {
+                                                    <tr>
+                                                        @if (item.ProductModelView.ImageModelView != null && @item.ProductModelView.ImageModelView.Count > 0)
+                                                        {
+                                                            <td><img src="/product-image/@item.ProductModelView.ImageModelView[0].name" class="item-image" /></td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td><img src="/product-image/@item.ProductModelView.avatar" class="item-image" /></td>
+                                                        }
+
+
+                                                        <td>@item.ProductModelView.name</td>
+
+                                                        <td>@item.quantity</td>
+
+                                                        <td>@item.price.Value.ToString("#,###")</td>
+                                                    </tr>
+                                                }
+                                            }
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="3" class="txt-right">Tổng tiền:</td>
+                                                <td>@Model.totalstr <i>đ</i></td>
+                                            </tr>
+                                            @if (Model.fee_ship.HasValue && Model.fee_ship.Value > 0)
+                                            {
+                                                <tr>
+                                                    <td colspan="3" class="txt-right">Phí vận chuyển:</td>
+                                                    <td>
+                                                        <span style="display: none;"><i>đ</i></span>
+                                                        <span>@Model.fee_ship.Value.ToString("#,###")<i>đ</i></span>
+                                                        <span style="display: none;">Nơi này chưa có phí cụ thể</span>
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                            <tr>
+                                                <td colspan="3" class="txt-right">Hình thức thanh toán:</td>
+                                                <td>
+                                                    <div>@Model.paymentstr</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" class="txt-right">Thành tiền:</td>
+                                                <td>@Model.totalstr <i>đ</i></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex" style="    margin: 0px 0px 20px 30px;"><a href="/admin/quan-ly-don-hang" class="btn btn-secondary me-1 mb-1 btn-back">Quay lại</a></div>
+                        </div>
+                      
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+

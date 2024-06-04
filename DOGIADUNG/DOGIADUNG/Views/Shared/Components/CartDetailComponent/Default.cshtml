@@ -1,0 +1,107 @@
+﻿@using TECH.Areas.Admin.Models
+@model List<CartsModelView>
+<div  id="DetailCartModal" tabindex="-1" aria-labelledby="DetailModalTitle" class="modal fade bd-example-modal-lg" aria-modal="true" role="dialog">
+   <div  class="modal-dialog modal-lg">
+      <div  class="modal-content">
+         <div  class="modal-header bg-custom">
+            <h5  id="DetailModalTitle" class="modal-title txt-title">Chi tiết đơn đặt hàng MDH15082022F617</h5>
+            <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button>
+         </div>
+         <div  class="modal-body">
+                @if (Model != null && Model.Count > 0)
+                {
+                    <section class="ftco-section ftco-cart custom-height box-container">
+                        <div class="container">
+                            <div class="row">
+                                <h2 class="mb-3">Giỏ hàng</h2>
+                                <div class="col-md-12">
+                                    <div class="cart-list my-cart">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 10%;">Hình ảnh</th>
+                                                        <th style="width: 26%;">Tên sản phẩm</th>
+                                                        <th style="width: 12%;">Giá tiền</th>
+                                                        <th style="width: 18%;">Số lượng</th>
+                                                        <th style="width: 10%;">Tổng</th>
+                                                        <th style="width: 10%;">Thao tác</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        decimal totalPrice = item.price.Value;
+                                                        string classQuantiy = item.product_id.Value.ToString();
+
+                                                        <tr>
+                                                            <td class="image-prod custom-td">
+                                                                <div class="img" style="width: 150px;height: 100px;"><img src="/product-image/@item.productModelView.ImageModelView[0].name" style="width: 100%; height: 100%;" class="img-product"></div>
+                                                            </td>
+                                                            <td class="product-name text-left custom-td">
+                                                                <h3 style="font-size: 15px;color: #333;margin-bottom: 0px;">@item.productModelView.name</h3>
+                                                            </td>
+                                                            <td class="price custom-td">@Convert.ToDecimal(item.productModelView.price_sell).ToString("#,###")<i> đ</i></td>
+                                                            <td class="custom-td">
+                                                                <div class="input-group input-quantity" style="display: inline-flex;    width: 50%;">
+                                                                    <div class="left-quantity"></div>
+                                                                    <div class="input-group-prepend"><button type="button" class="btn btn-primary minus" onclick="minusQuantity(@classQuantiy,@item.id)">-</button></div>
+                                                                    <input type="number" id="quantity" style="width: 27px;" min="1" oninput="this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : 1" value="@item.quantity" aria-label="Recipient's username" aria-describedby="basic-addon2" class="form-control @classQuantiy">
+                                                                    <div class="input-group-append"><button type="button" class="btn btn-primary plus" onclick="addQuantity(@classQuantiy,@item.id)">+</button></div>
+                                                                    <div class="right-quantity"></div>
+                                                                </div>
+                                                            </td>
+                                                            <td class="custom-td"><span class="@classQuantiy">@item.price.Value.ToString("#,###")</span><i> đ</i></td>
+                                                            <td class="custom-td"><button class="btn btn-danger text-white" style="background: red;" onclick="deleteCart(@item.id)"><i class="fa fa-trash text-white"></i></button></td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <a href="thanh-toan" class="btn btn-primary py-3 px-4 float-right mr-3 btn-checkout" style="background: green;color: #fff;">
+                                        Thanh toán
+                                    </a> <a href="san-pham" class="btn btn-secondary py-3 px-4 float-right mr-3 btn-buy" style="color: #fff;margin-right: 10px;">Tiếp tục mua hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                }
+                else
+                {
+                    <section class="ftco-section ftco-cart custom-height box-container" style="margin-top: 40px">
+                        <div class="container">
+                            <div class="row">
+                                <h2 class="mb-3">Giỏ hàng</h2>
+                                <div class="col-md-12">
+                                    <div class="cart-list my-cart">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 10%;">Hình ảnh</th>
+                                                        <th style="width: 26%;">Tên sản phẩm</th>
+                                                        <th style="width: 12%;">Giá tiền</th>
+                                                        <th style="width: 18%;">Số lượng</th>
+                                                        <th style="width: 10%;">Tổng</th>
+                                                        <th style="width: 10%;">Thao tác</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <a href="thanh-toan" class="btn btn-primary py-3 px-4 float-right mr-3 btn-checkout" style="display: none;">
+                                        Thanh toán
+                                    </a> <a href="/" class="btn btn-secondary py-3 px-4 float-right mr-3 btn-buy" style="color:#fff">Tiếp tục mua hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                }
+         </div>
+         <div  class="modal-footer"><button  type="button" data-dismiss="modal" class="btn btn-secondary btn-3d">Đóng</button></div>
+      </div>
+   </div>
+</div>
